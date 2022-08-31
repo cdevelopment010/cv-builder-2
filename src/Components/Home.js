@@ -9,9 +9,9 @@ class Home extends Component {
         return(
             <div>
                 <Navigation />
-                <h1>Welcome to the CV Builder</h1>
+                <h1>Welcome to The Odin Project CV Builder</h1>
                 <p>This cv builder uses react router dom to navigate between different sections.</p>
-                <p>Please click the button below to start.</p>
+                <p>Please click the link below to get started.</p>
                 <Link to="/personalInfo">Personal Information</Link>
             </div>
         )

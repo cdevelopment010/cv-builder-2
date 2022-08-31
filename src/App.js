@@ -24,33 +24,98 @@ class App extends React.Component {
         phone: '', 
         websites: [''],
         about: ''
+      },
+      educationInfo: {
+        institute: [{
+          school: '',
+          from: '',
+          to: '',
+          grade: '',
+          areaStudy: '',
+          overview: ''
+        }]
+      }, 
+      careerInfo: {
+        career: [{
+          title: '',
+          company: '',
+          from: '',
+          to:'',
+          overview: ''
+        }]
+      }, 
+
+      projectInfo: {
+        project: [{
+          name: '',
+          link: '',
+          overview: ''
+        }]
+      }, 
+      skillInfo: {
+        skills:['']
+      }, 
+      referenceInfo: {
+        reference:[{
+          name: '',
+          email: '',
+          phone: ''
+        }]
       }
     }
 
     this.updateInfo = this.updateInfo.bind(this); 
+    this.addRecord = this.addRecord.bind(this);
 
   }
 
   updateInfo( e ) {
-    let area = e.target.id.split("-")[0];
-    let variable = e.target.id.split("-")[1];
+    let targetStateArea = e.target.id.split('-')[0]; 
+      let targetStateField = e.target.id.split('-')[1]; 
 
-    let previousState = this.state[area]; 
-    
-    if(e.target.id.split("-").length > 2){
-      let index = e.target.id.split("-")[2]; 
-      console.log(previousState[variable]);
-      previousState[variable][index]= e.target.value;
+      let currState = this.state[targetStateArea];
+      if (Array.isArray(currState[targetStateField])) {
+        let arrIndex = e.target.id.split('-')[2];
 
+        if (e.target.id.split('-')[3] !== 'input' && e.target.id.split('-')[3] !== 'btn') {
+          let inputSec = e.target.id.split('-')[3]; 
+          currState[targetStateField][arrIndex][inputSec] = e.target.value;
+        } else {
+          currState[targetStateField][arrIndex] = e.target.value;
+        }
+      } else {
+        currState[targetStateField] = e.target.value;
+      }
+      
+      this.setState({
+          [targetStateArea]: currState
+      })
+  }
+
+
+  addRecord( e ) {
+    let targetStateArea = e.target.id.split('-')[0]; 
+    let targetStateField = e.target.id.split('-')[1]; 
+    let currState = this.state[targetStateArea];
+
+    let count = currState[targetStateField];
+    let newRecord;
+
+    if (typeof count[0] === 'object') {
+      newRecord = {...count[0]};
+      for(let item in newRecord) {
+        newRecord[item] = ''
+  
+      }
     } else {
-      previousState[variable]= e.target.value;
+      newRecord = '';
     }
+    
 
-
-
-
+    count.push(newRecord);
+    currState[targetStateField] = count;
     this.setState({
-      [area]: previousState
+      [targetStateArea]: currState
     })
   }
 
@@ -61,11 +126,11 @@ class App extends React.Component {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/personalInfo' element={<PersonalInfo data={this.state.personalInfo} callback={this.updateInfo}/>} />
-            <Route path='/education' element={<Education />} />
-            <Route path='/career' element={<Career />} />
-            <Route path='/skills' element={<Skills />} />
-            <Route path='/references' element={<References />} />
+            <Route path='/personalInfo' element={<PersonalInfo data={this.state.personalInfo} callback={this.updateInfo} newField={this.addRecord}/>} />
+            <Route path='/education' element={<Education data={this.state.educationInfo} callback={this.updateInfo} newField={this.addRecord}/>} />
+            <Route path='/career' element={<Career data={this.state.careerInfo} callback={this.updateInfo} newField={this.addRecord}/>} />
+            <Route path='/skills' element={<Skills data={this.state.skillInfo} callback={this.updateInfo} newField={this.addRecord}/>} />
+            <Route path='/references' element={<References data={this.state.referenceInfo} callback={this.updateInfo} newField={this.addRecord}/>} />
             <Route path='/AOB' element={<AOB />} />
             <Route path='/documentStyle' element={<DocumentStyle />} />
             <Route path='/preview' element={<Preview />} />
