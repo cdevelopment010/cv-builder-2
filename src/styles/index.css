@@ -21,3 +21,32 @@ code {
   align-items: center;
   justify-content: center;
 }
+
+
+
+.input-section {
+  background-color: red;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  grid-column-start: 1;
+  /* overflow-y: scroll; */
+}
+.input-container {
+  background-color: white;
+  
+  width: 60%;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px 0 rgba(0,0,0,0.35),10px 10px 10px 0 rgba(0,0,0,0.25);
+}
+
+.render-section {
+  text-align: left;
+  justify-self: center;
+  grid-column-start: 1;
+  width: 60%;
+  padding-top: 20px;
+  /* overflow-y: scroll; */
+}
