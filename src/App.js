@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
 import './styles/App.css';
 import './styles/Footer.css';
 import './styles/Helper.css';
@@ -127,7 +127,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/personalInfo' element={<PersonalInfo data={this.state.personalInfo} callback={this.updateInfo} newField={this.addRecord}/>} />
@@ -140,7 +140,7 @@ class App extends React.Component {
             <Route path='/preview' element={<Preview data={this.state} callback={this.updateInfo} newField={this.addRecord}/>} />
             <Route path='*' element={<NotFound />}/>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
         
       </div>
     );
